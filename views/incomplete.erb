@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>Lista de tareas</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container">
+		<h1>Lista de tareas</h1>
+		<hr>
+		<h2>Manejador</h2>
+		<form action="/incomplete" method="post">
+			<input type="text" name="taskname" placeholder="Nombre de la tarea">
+			<input type="submit" value="Crear" class="btn btn-primary">
+		</form>
+		<div>
+			<a class="btn btn-warning disabled" href="/incomplete" >Incompletas</a>
+			<a class="btn btn-info" href="/">Completas</a>
+		</div>
+		<hr>
+		<h2>Tareas sin hacer</h2>
+		<ul class="list-group">
+			<% @tasks.each do |task| %>
+			<% unless task["done"]%>
+			<li class="list-group-item">
+				<strong><%= task["id"] %></strong>
+				<strong> | </strong>
+				<strong><%= task["title"] %></strong>
+				<strong> | </strong>
+				<strong>No completada</strong>	
+				<span style="margin-left: 50px">
+					<a href="/incomplete/complete/<%= task["id"] %>" class="btn btn-success">Completar</a>					
+					<a href="/incomplete/delete/<%= task["id"] %>" class="btn btn-danger">Borrar</a>
+				</span>	
+			</li>
+			<% end %>
+			<% end %>
+		</ul>
+	</div>
+
+</body>
+
+</html>
